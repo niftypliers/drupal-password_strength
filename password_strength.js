@@ -1,3 +1,5 @@
+// $Id$
+
 Drupal.settings = {}
 Drupal.settings.password = {
   strengthTitle: 'Password strength:',
