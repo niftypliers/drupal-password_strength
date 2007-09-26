@@ -1,7 +1,7 @@
 // $Id$
 
-Drupal.settings = {}
-Drupal.settings.password = {
+Drupal.settings = Drupal.settings || {}
+Drupal.settings.password = Drupal.settings.password || {
   strengthTitle: 'Password strength:',
   lowStrength: 'Low',
   mediumStrength: 'Medium',
