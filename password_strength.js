@@ -1,31 +1,30 @@
 // $Id$
 
-Drupal.settings = Drupal.settings || {}
+Drupal.settings = Drupal.settings || {};
 Drupal.settings.password = Drupal.settings.password || {
-  strengthTitle: 'Password strength:',
-  lowStrength: 'Low',
-  mediumStrength: 'Medium',
-  highStrength: 'High',
-  tooShort: 'It is recommended to choose a password that contains at least six characters. It should include numbers, punctuation, and both upper and lowercase letters.',
-  needsMoreVariation: 'The password does not include enough variation to be secure. Try:',
-  addLetters: 'Adding both upper and lowercase letters.',
-  addNumbers: 'Adding numbers.',
-  addPunctuation: 'Adding punctuation.',
-  sameAsUsername: 'It is recommended to choose a password different from the username.',
-  confirmSuccess: 'Yes',
-  confirmFailure: 'No',
-  confirmTitle: 'Passwords match:',
-  username: '',
-}
+  'strengthTitle': 'Password strength:',
+  'lowStrength': 'Low',
+  'mediumStrength': 'Medium',
+  'highStrength': 'High',
+  'tooShort': 'It is recommended to choose a password that contains at least six characters. It should include numbers, punctuation, and both upper and lowercase letters.',
+  'needsMoreVariation': 'The password does not include enough variation to be secure. Try:',
+  'addLetters': 'Adding both upper and lowercase letters.',
+  'addNumbers': 'Adding numbers.',
+  'addPunctuation': 'Adding punctuation.',
+  'sameAsUsername': 'It is recommended to choose a password different from the username.',
+  'confirmSuccess': 'Yes',
+  'confirmFailure': 'No',
+  'confirmTitle': 'Passwords match:',
+  'username': ''};
 
 
 /**
  * Attach handlers to evaluate the strength of any password fields and to check
  * that its confirmation is correct.
  */
-Drupal.passwordAttach = function(context) {
+Drupal.passwordAttach = function() {
   var translate = Drupal.settings.password;
-  $("input.password-field:not(.password-processed)", context).each(function() {
+  $("input.password-field:not(.password-processed)").each(function() {
     var passwordInput = $(this).addClass('password-processed');
     var parent = $(this).parent();
     // Wait this number of milliseconds before checking password.
@@ -187,7 +186,6 @@ Drupal.evaluatePasswordStrength = function(value) {
 
   return { strength: strength, message: msg };
 };
-
 
 
 
