@@ -6,8 +6,10 @@ Drupal.settings.password = Drupal.settings.password || {
   'lowStrength': 'Low',
   'mediumStrength': 'Medium',
   'highStrength': 'High',
+  'requiredStrength': 1,
   'tooShort': 'It is recommended to choose a password that contains at least six characters. It should include numbers, punctuation, and both upper and lowercase letters.',
   'needsMoreVariation': 'The password does not include enough variation to be secure. Try:',
+  'recommendVariation': 'Your password is strong enough to meet the site requirements, but could be stronger.  If you like, try:',
   'addLetters': 'Adding both upper and lowercase letters.',
   'addNumbers': 'Adding numbers.',
   'addPunctuation': 'Adding punctuation.',
@@ -166,25 +168,24 @@ Drupal.evaluatePasswordStrength = function(value) {
     strength = "high";
   }
   // Password is not secure enough so construct the medium-strength message.
-  else {
-    // Extremely bad passwords still count as low.
-    var count = (hasLetters ? 1 : 0) + (hasNumbers ? 1 : 0) + (hasPunctuation ? 1 : 0) + (hasCasing ? 1 : 0);
-    strength = count > 1 ? "medium" : "low";
+  // Extremely bad passwords still count as low.
+  var count = (hasLetters ? 1 : 0) + (hasNumbers ? 1 : 0) + (hasPunctuation ? 1 : 0) + (hasCasing ? 1 : 0);
+  strength = count > 2 ? "medium" : "low";
 
-    msg = [];
-    if (!hasLetters || !hasCasing) {
-      msg.push(translate.addLetters);
-    }
-    if (!hasNumbers) {
-      msg.push(translate.addNumbers);
-    }
-    if (!hasPunctuation) {
-      msg.push(translate.addPunctuation);
-    }
-    msg = translate.needsMoreVariation +"<ul><li>"+ msg.join("</li><li>") +"</li></ul>";
+  msg = [];
+  if (!hasLetters || !hasCasing) {
+    msg.push(translate.addLetters);
   }
+  if (!hasNumbers) {
+    msg.push(translate.addNumbers);
+  }
+  if (!hasPunctuation) {
+    msg.push(translate.addPunctuation);
+  }
+  out = translate.requiredStrength >= count ? translate.recommendVariation : translate.needsMoreVariation;
+  out += "<ul><li>"+ msg.join("</li><li>") +"</li></ul>";
 
-  return { strength: strength, message: msg };
+  return { strength: strength, message: out };
 };
 
 
