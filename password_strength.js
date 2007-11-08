@@ -182,7 +182,7 @@ Drupal.evaluatePasswordStrength = function(value) {
   if (!hasPunctuation) {
     msg.push(translate.addPunctuation);
   }
-  out = translate.requiredStrength >= count ? translate.recommendVariation : translate.needsMoreVariation;
+  out = (count >= translate.requiredStrength) ? translate.recommendVariation : translate.needsMoreVariation;
   out += "<ul><li>"+ msg.join("</li><li>") +"</li></ul>";
 
   return { strength: strength, message: out };
