@@ -1,1 +1,0 @@
-Drupal.settings.password.requiredStrength = 3;

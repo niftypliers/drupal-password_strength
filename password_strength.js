@@ -1,25 +1,5 @@
 // $Id$
 
-Drupal.settings = Drupal.settings || {};
-Drupal.settings.password = Drupal.settings.password || {
-  'strengthTitle': 'Password strength:',
-  'lowStrength': 'Low',
-  'mediumStrength': 'Medium',
-  'highStrength': 'High',
-  'requiredStrength': 1,
-  'tooShort': 'It is recommended to choose a password that contains at least six characters. It should include numbers, punctuation, and both upper and lowercase letters.',
-  'needsMoreVariation': 'The password does not include enough variation to be secure. Try:',
-  'recommendVariation': 'Your password is strong enough to meet the site requirements, but could be stronger.  If you like, try:',
-  'addLetters': 'Adding both upper and lowercase letters.',
-  'addNumbers': 'Adding numbers.',
-  'addPunctuation': 'Adding punctuation.',
-  'sameAsUsername': 'It is recommended to choose a password different from the username.',
-  'confirmSuccess': 'Yes',
-  'confirmFailure': 'No',
-  'confirmTitle': 'Passwords match:',
-  'username': ''};
-
-
 /**
  * Attach handlers to evaluate the strength of any password fields and to check
  * that its confirmation is correct.
@@ -141,7 +121,7 @@ Drupal.passwordAttach = function() {
  * Returns the estimated strength and the relevant output message.
  */
 Drupal.evaluatePasswordStrength = function(value) {
-  var strength = "", msg = "", translate = Drupal.settings.password;
+  var strength = "", msg = [], out = "", translate = Drupal.settings.password;
 
   var hasLetters = value.match(/[a-zA-Z]+/);
   var hasNumbers = value.match(/[0-9]+/);
@@ -153,37 +133,39 @@ Drupal.evaluatePasswordStrength = function(value) {
     strength = "";
     msg = "";
   }
-  // Check if length is less than 6 characters.
-  else if (value.length < 6) {
+  // Check if length is less than setting characters.
+  else if (value.length < translate.minLength) {
     strength = "low";
-    msg = translate.tooShort;
+    msg.push(translate.tooShort);
   }
   // Check if password is the same as the username (convert both to lowercase).
   else if (value.toLowerCase() == translate.username.toLowerCase()) {
     strength  = "low";
-    msg = translate.sameAsUsername;
+    msg.push(translate.sameAsUsername);
   }
   // Check if it contains letters, numbers, punctuation, and upper/lower case.
   else if (hasLetters && hasNumbers && hasPunctuation && hasCasing) {
     strength = "high";
   }
-  // Password is not secure enough so construct the medium-strength message.
-  // Extremely bad passwords still count as low.
-  var count = (hasLetters ? 1 : 0) + (hasNumbers ? 1 : 0) + (hasPunctuation ? 1 : 0) + (hasCasing ? 1 : 0);
-  strength = count > 2 ? "medium" : "low";
+  
+  if (strength != "high") {
+    // Password is not secure enough so construct the medium-strength message.
+    // Extremely bad passwords still count as low.
+    var count = (hasLetters ? 1 : 0) + (hasNumbers ? 1 : 0) + (hasPunctuation ? 1 : 0) + (hasCasing ? 1 : 0);
+    strength = count > 2 ? "medium" : "low";
 
-  msg = [];
-  if (!hasLetters || !hasCasing) {
-    msg.push(translate.addLetters);
+    if (!hasLetters || !hasCasing) {
+      msg.push(translate.addLetters);
+    }
+    if (!hasNumbers) {
+      msg.push(translate.addNumbers);
+    }
+    if (!hasPunctuation) {
+      msg.push(translate.addPunctuation);
+    }
+    out = (count >= translate.requiredStrength) ? translate.recommendVariation : translate.needsMoreVariation;
+    out += "<ul><li>"+ msg.join("</li><li>") +"</li></ul>";
   }
-  if (!hasNumbers) {
-    msg.push(translate.addNumbers);
-  }
-  if (!hasPunctuation) {
-    msg.push(translate.addPunctuation);
-  }
-  out = (count >= translate.requiredStrength) ? translate.recommendVariation : translate.needsMoreVariation;
-  out += "<ul><li>"+ msg.join("</li><li>") +"</li></ul>";
 
   return { strength: strength, message: out };
 };
