@@ -114,7 +114,6 @@ Drupal.passwordAttach = function() {
 };
 
 
-
 /**
  * Evaluate the strength of a user's password.
  *
@@ -147,7 +146,7 @@ Drupal.evaluatePasswordStrength = function(value) {
   else if (hasLetters && hasNumbers && hasPunctuation && hasCasing) {
     strength = "high";
   }
-  
+
   if (strength != "high") {
     // Password is not secure enough so construct the medium-strength message.
     // Extremely bad passwords still count as low.
@@ -169,7 +168,6 @@ Drupal.evaluatePasswordStrength = function(value) {
 
   return { strength: strength, message: out };
 };
-
 
 
 if (Drupal.jsEnabled) {
