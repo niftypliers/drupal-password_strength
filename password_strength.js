@@ -6,6 +6,7 @@
  */
 Drupal.passwordAttach = function() {
   var translate = Drupal.settings.password;
+  delete Drupal.behaviors.password;
   $("input.password-field:not(.password-processed)").each(function() {
     var passwordInput = $(this).addClass('password-processed');
     var parent = $(this).parent();
@@ -120,13 +121,17 @@ Drupal.passwordAttach = function() {
  * Returns the estimated strength and the relevant output message.
  */
 Drupal.evaluatePasswordStrength = function(value) {
-  var strength = "", msg = [], out = "", translate = Drupal.settings.password;
+  var strength = "", msg = [], out = "", translate = Drupal.settings.passwordStrength;
 
   var hasLetters = value.match(/[a-zA-Z]+/);
   var hasNumbers = value.match(/[0-9]+/);
   var hasPunctuation = value.match(/[^a-zA-Z0-9]+/);
   var hasCasing = value.match(/[a-z]+.*[A-Z]+|[A-Z]+.*[a-z]+/);
-
+  var userNameForm = document.getElementById('edit-name');
+  var userName =  translate.username;
+  if((typeof(userNameForm)  != "undefined") && ((userNameForm  != null))) {
+     userName =  userNameForm.value;
+   } 
   // Check if the password is blank.
   if (!value.length) {
     strength = "";
@@ -138,7 +143,7 @@ Drupal.evaluatePasswordStrength = function(value) {
     msg.push(translate.tooShort);
   }
   // Check if password is the same as the username (convert both to lowercase).
-  else if (value.toLowerCase() == translate.username.toLowerCase()) {
+  else if (value.toLowerCase() == userName.toLowerCase()) {
     strength  = "low";
     msg.push(translate.sameAsUsername);
   }
