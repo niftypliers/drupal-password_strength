@@ -12,6 +12,11 @@
  * @ingroup forms
  */
 function password_strength_settings() {
+  if (!class_exists('ZxcvbnPhp\Zxcvbn')) {
+    drupal_set_message(t('The password strength library Zxcvbn-Php is not available. Consult the README.md for installation instructions.'), 'error');
+    return array('error' => array('#markup' => t('Unable to configure Password Strength, module requirements not met.')));
+  }
+
   $form = array();
   $form['password_strength_default_required_score'] = array(
     '#type' => 'select',

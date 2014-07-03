@@ -1,0 +1,17 @@
+{
+    "name": "drupal/password_strength",
+    "type": "drupal-module",
+    "description": "Password strength checker and enforcement",
+    "keywords": ["password", "drupal"],
+    "homepage": "https://www.drupal.org/sandbox/coltrane/2292875",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "See contributors",
+            "homepage": "https://www.drupal.org/sandbox/coltrane/2292875"
+        }
+    ],
+    "require": {
+        "bjeavons/zxcvbn-php": "0.1.3"
+    }
+}
