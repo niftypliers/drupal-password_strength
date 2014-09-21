@@ -30,6 +30,22 @@ function password_strength_settings() {
     '#default_value' => variable_get('password_strength_default_required_score', NULL),
     '#options' => password_strength_score_list(),
   );
+  $form['test'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Test password strength',
+    '#description' => t('Try different passwords to see what strength they are.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => variable_get('password_strength_default_required_score', NULL),
+  );
+  $form['test']['password'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Password test'),
+    '#attributes' => array(
+      'class' => array('password-field'),
+    ),
+  );
+  password_strength_form_password_js_attach($form['test']['password']);
+
   $form['password_strength_default_password_length'] = array(
     '#type' => 'textfield',
     '#title' => t('Minimum password length'),
