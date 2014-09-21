@@ -18,12 +18,24 @@ function password_strength_settings() {
   }
 
   $form = array();
+  $desc = "Password strengths are measured and based both on the amount of entropy (randomness) in the password and an estimate of the amount of time it could take to crack the password using brute-force attempts. The estimated time to crack at each level is about two orders of magnitude greater than the next lower level, so a Weak password can be cracked nearly instantly, while a Very strong password might take years.";
+  $form['description'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p>' . t($desc) . '</p>',
+  );
   $form['password_strength_default_required_score'] = array(
     '#type' => 'select',
     '#title' => t('Minimum required password strength'),
     '#description' => t('The minimum strength required for user account passwords.'),
     '#default_value' => variable_get('password_strength_default_required_score', NULL),
     '#options' => password_strength_score_list(),
+  );
+  $form['password_strength_default_password_length'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Minimum password length'),
+    '#size' => 4,
+    '#description' => t('The minimum password length in number of characters.'),
+    '#default_value' => variable_get('password_strength_default_password_length', 7),
   );
 
   return system_settings_form($form);
