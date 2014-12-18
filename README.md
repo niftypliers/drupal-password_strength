@@ -7,7 +7,6 @@ Zxcvbn-PHP library.
 
 https://github.com/bjeavons/zxcvbn-php
 
-
 ### Install
 
 You can choose to either use xautoload or composer_manager.
@@ -30,3 +29,9 @@ instructions, for example using drush:
   `drush vset password_strength_default_required_score 1`
 2. Go to password change form
 3. Enter new password 'password' and see validation fail
+
+### Hooks
+
+Implement hook_password_strength_minimum_score_alter(&$score, $account){} to
+override the global password_strength_default_required_score variable for a user
+account.
