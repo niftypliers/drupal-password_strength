@@ -1,5 +1,5 @@
 (function ($) {
-
+  "use strict";
   /**
    * Attach handlers to evaluate the strength of any password fields.
    */
@@ -24,7 +24,7 @@
         $message_strength.hide();
         $message_flaws.hide();
 
-        passwordCheck = function (e, isCallback) {
+        var passwordCheck = function (e, isCallback) {
           if (typeof isCallback != 'undefined') {
             return;
           }
@@ -87,7 +87,7 @@
 
         };
 
-        position = function () {
+        var position = function () {
           // Position the strength meter inside of the password field and adjust
           var width = $self.outerWidth(),
               height = $self.outerHeight(),
