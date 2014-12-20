@@ -31,7 +31,7 @@
 
           e.stopImmediatePropagation();
 
-          request_data = { password: encodeURIComponent($self.val()), token: Drupal.settings.passwordStrength.token };
+          request_data = { password: encodeURIComponent($self.val()), token: Drupal.settings.passwordStrength.token, uid: Drupal.settings.passwordStrength.uid };
           if (required_score) {
             request_data['password_score'] = required_score;
           }
