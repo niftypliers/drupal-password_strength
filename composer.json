@@ -1,0 +1,16 @@
+{
+    "name": "drupal/password_strength",
+    "type": "drupal-module",
+    "description": "Password strength checker and enforcement",
+    "keywords": ["password", "drupal"],
+    "homepage": "",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Ben Jeavons"
+        }
+    ],
+    "require": {
+        "bjeavons/zxcvbn-php": "0.1.3"
+    }
+}
