@@ -15,8 +15,8 @@ function password_strength_settings() {
   $form = array();
   $form['password_strength_default_required_score'] = array(
     '#type' => 'select',
-    '#title' => t('Password strength required minimum score'),
-    '#description' => t('The minimum score required to set a user account password.'),
+    '#title' => t('Minimum required password strength'),
+    '#description' => t('The minimum strength required for user account passwords.'),
     '#default_value' => variable_get('password_strength_default_required_score', NULL),
     '#options' => password_strength_score_list(),
   );
