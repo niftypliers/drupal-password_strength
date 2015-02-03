@@ -123,6 +123,54 @@
         /////////////////////////////////////////////////////////////
 
     });
+
+    // Drupal 6 doesn't include the jQuery once plugin.
+    $('input.password-confirm:not(.password-strength-check-match-processed)', context).each(function () {
+      $(this).addClass('password-strength-check-match-processed');
+
+        /////////////////////////////////////////////////////////////
+        // Code from Drupal 7 Drupal.behaviors.PasswordStrengthCheck.
+        /////////////////////////////////////////////////////////////
+
+        // Create password check match dom elements and apply them.
+        var $self = $(this),
+          $container = $('<div class="password-strength-check-match"></div>'),
+          $message = $('<div class="password-strength-check-match-message"></div>');
+
+        $self.wrap($container);
+        $self.after($message);
+
+        var passwordCheckMatch = function (e, isCallback) {
+          if (typeof isCallback != 'undefined') {
+            return;
+          }
+
+          e.stopImmediatePropagation();
+
+          if ($self.val()) {
+            if ($self.val() === $('input.password-field').val()) {
+              $message.html(Drupal.t('Passwords match.'));
+              $message.slideDown();
+            }
+            else {
+              $message.html(Drupal.t('Passwords do not match.'));
+              $message.slideDown();
+            }
+          }
+          else {
+            $message.slideUp();
+          }
+        }
+
+        // Prevent evaluating password right away on each keystroke.
+        $self.bindWithDelay('keyup focusin', passwordCheckMatch, 100, true);
+
+        /////////////////////////////////////////////////////////////
+        // End of code from Drupal 7 Drupal.behaviors.PasswordStrengthCheck.
+        /////////////////////////////////////////////////////////////
+
+    });
+
   };
 
   /**
