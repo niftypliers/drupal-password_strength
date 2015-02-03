@@ -3,11 +3,12 @@
     "type": "drupal-module",
     "description": "Password strength checker and enforcement",
     "keywords": ["password", "drupal"],
-    "homepage": "",
+    "homepage": "https://www.drupal.org/project/password_strength",
     "license": "GPL-2.0+",
     "authors": [
         {
-            "name": "Ben Jeavons"
+            "name": "See contributors",
+            "homepage": "https://www.drupal.org/project/password_strength"
         }
     ],
     "require": {
