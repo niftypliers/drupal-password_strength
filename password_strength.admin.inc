@@ -43,7 +43,8 @@ function password_strength_settings() {
       'class' => 'password-field',
     ),
   );
-  password_strength_form_password_js_attach($form['test']['password']);
+  global $user;
+  password_strength_form_password_js_attach($form['test']['password'], $user);
 
   $form['password_strength_default_password_length'] = array(
     '#type' => 'textfield',
