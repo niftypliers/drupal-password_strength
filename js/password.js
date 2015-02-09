@@ -5,6 +5,13 @@
    */
   Drupal.behaviors.PasswordStrengthCheck = function (context, settings) {
 
+    // Exit early if the version of jQuery isn't the one from core.
+    var version = $.fn.jquery.split('.');
+    if (version[0] + '.' + version[1] == '1.2') {
+      alert("The password_strength jQuery code isn't compatible with the default jQuery included in Drupal 6. See README.md.");
+      return;
+    }
+
     // Drupal 6 doesn't include the jQuery once plugin.
     $('input.password-field:not(.password-strength-check-processed)', context).each(function () {
       $(this).addClass('password-strength-check-processed');
