@@ -9,6 +9,7 @@
  * Form builder for password strength form.
  *
  * @see system_settings_form()
+ *
  * @ingroup forms
  */
 function password_strength_settings() {
@@ -18,9 +19,9 @@ function password_strength_settings() {
   }
 
   $form = array();
-  $desc = "Password strengths are measured and based both on the amount of entropy (randomness) in the password and an estimate of the amount of time it could take to crack the password using brute-force attempts. The estimated time to crack at each level is about two orders of magnitude greater than the next lower level, so a Weak password can be cracked nearly instantly, while a Very strong password might take years.";
+  $desc = t('Password strengths are measured and based both on the amount of entropy (randomness) in the password and an estimate of the amount of time it could take to crack the password using brute-force attempts. The estimated time to crack at each level is about two orders of magnitude greater than the next lower level, so a weak password can be cracked nearly instantly, while a very strong password might take years.');
   $form['description'] = array(
-    '#value' => '<p>' . t($desc) . '</p>',
+    '#value' => '<p>' . $desc . '</p>',
   );
   $form['password_strength_default_required_score'] = array(
     '#type' => 'select',
@@ -43,8 +44,7 @@ function password_strength_settings() {
       'class' => 'password-field',
     ),
   );
-  global $user;
-  password_strength_form_password_js_attach($form['test']['password'], $user);
+  password_strength_form_password_js_attach($form['test']['password'], $GLOBALS['user']);
 
   $form['password_strength_default_password_length'] = array(
     '#type' => 'textfield',

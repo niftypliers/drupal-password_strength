@@ -1,14 +1,16 @@
+/**
+ * @file
+ * Attach handlers to evaluate the strength of any password fields.
+ */
+
 (function ($) {
   "use strict";
-  /**
-   * Attach handlers to evaluate the strength of any password fields.
-   */
-  Drupal.behaviors.PasswordStrengthCheck = function (context, settings) {
 
-    // Exit early if the version of jQuery isn't the one from core.
+  Drupal.behaviors.PasswordStrengthCheck = function (context, settings) {
+    // Exit early if the version of jQuery is the one from core.
     var version = $.fn.jquery.split('.');
     if (version[0] + '.' + version[1] == '1.2') {
-      alert("The password_strength jQuery code isn't compatible with the default jQuery included in Drupal 6. See README.md.");
+      alert("The password complexity jQuery code isn't compatible with the default jQuery included in Drupal 6. See README.md.");
       return;
     }
 
@@ -100,7 +102,7 @@
         };
 
         var position = function () {
-          // Position the strength meter inside of the password field and adjust
+          // Position the strength meter inside the password field and adjust.
           var width = $self.outerWidth(),
               height = $self.outerHeight(),
               bar_height = $strength_bar.outerHeight();
@@ -128,7 +130,6 @@
         /////////////////////////////////////////////////////////////
         // End of code from Drupal 7 Drupal.behaviors.PasswordStrengthCheck.
         /////////////////////////////////////////////////////////////
-
     });
 
     // Drupal 6 doesn't include the jQuery once plugin.
@@ -175,7 +176,6 @@
         /////////////////////////////////////////////////////////////
         // End of code from Drupal 7 Drupal.behaviors.PasswordStrengthCheck.
         /////////////////////////////////////////////////////////////
-
     });
 
   };
@@ -184,31 +184,34 @@
    * Define an alternative to bind function that will delay execution.
    */
   $.fn.bindWithDelay = function(type, data, fn, timeout, throttle) {
-
-    if ( $.isFunction( data ) ) {
+    if ($.isFunction(data)) {
       throttle = timeout;
       timeout = fn;
       fn = data;
       data = undefined;
     }
 
-    // Allow delayed function to be removed with fn in unbind function
+    // Allow delayed function to be removed with fn in unbind function.
     fn.guid = fn.guid || ($.guid && $.guid++);
 
-    // Bind each separately so that each element has its own delay
+    // Bind each separately so that each element has its own delay.
     return this.each(function() {
       var wait = null;
 
       function cb() {
-        var e = $.extend(true, { }, arguments[0]);
+        var e = $.extend(true, {}, arguments[0]);
         var ctx = this;
         var throttler = function() {
           wait = null;
           fn.apply(ctx, [e]);
         };
 
-        if (!throttle) { clearTimeout(wait); wait = null; }
-        if (!wait) { wait = setTimeout(throttler, timeout); }
+        if (!throttle) {
+          clearTimeout(wait); wait = null;
+        }
+        if (!wait) {
+          wait = setTimeout(throttler, timeout);
+        }
       }
 
       cb.guid = fn.guid;
@@ -223,8 +226,10 @@
     if (a == "") return {};
     var b = {};
     for (var i = 0; i < a.length; ++i) {
-      var p=a[i].split('=');
-      if (p.length != 2) continue;
+      var p = a[i].split('=');
+      if (p.length != 2) {
+        continue;
+      }
       b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
     }
     return b;
