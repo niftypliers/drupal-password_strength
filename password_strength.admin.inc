@@ -30,6 +30,7 @@ function password_strength_settings() {
     '#default_value' => variable_get('password_strength_default_required_score', NULL),
     '#options' => password_strength_score_list(),
   );
+  $form['password_strength_default_required_score']['#options'][0] = t('disabled');
   $form['test'] = array(
     '#type' => 'fieldset',
     '#title' => 'Test password strength',
