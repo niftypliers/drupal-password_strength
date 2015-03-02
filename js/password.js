@@ -97,7 +97,7 @@
           var width = $self.outerWidth(),
               height = $self.outerHeight(),
               bar_height = $strength_bar.outerHeight();
-          $strength_bar.css({ width: width - 6, left: 3, top: height - bar_height - 3 });
+          $strength_bar.css({ width: width - 2, left: 1, top: height - bar_height });
           $message_strength.css({ width: width });
         };
 
