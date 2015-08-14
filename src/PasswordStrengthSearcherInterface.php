@@ -2,19 +2,12 @@
 
 /**
  * @file
- * Contains Drupal\password_strength\SearcherBase.
+ * Contains Drupal\password_strength\PasswordStrengthSearcherInterface.
  */
 
 namespace Drupal\password_strength;
 
-use Drupal\Component\Plugin\PluginBase;
-
-class SearcherBase extends PluginBase implements PasswordStrengthSearcherInterface {
-
-  /**
-   * @var
-   */
-  public $matchSequence;
+interface PasswordStrengthSearcherInterface {
 
   /**
    * Calculate the minimum entropy for a password and its matches.
@@ -27,7 +20,6 @@ class SearcherBase extends PluginBase implements PasswordStrengthSearcherInterfa
    * @return float
    *   Minimum entropy for non-overlapping best matches of a password.
    */
-  public function getMinimumEntropy($password, $matches) {
-    return 0;
-  }
+  public function getMinimumEntropy($password, $matches);
+
 }

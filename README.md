@@ -1,7 +1,7 @@
-password_policy_zxcvbn
+password_strength
 ======================
 
-This is a Drupal 8 module that adds a Zxcvbn plugin to the D8 Password Policy module. Implemented from https://github.com/bjeavons/zxcvbn-php
+This is a Drupal 8 module that adds a PasswordStrength plugin to the D8 Password Policy module. Implemented from https://github.com/bjeavons/zxcvbn-php
 
 After developing this module, I was informed about the following module: https://www.drupal.org/project/password_strength. This module is basically a D8 version of the module that now plugs into Password Policy.
 

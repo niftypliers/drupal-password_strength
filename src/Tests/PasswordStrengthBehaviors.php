@@ -2,21 +2,21 @@
 
 /**
  * @file
- * Definition of Drupal\password_policy_zxcvbn\Tests\PasswordStrengthBehaviors.
+ * Definition of Drupal\password_strength\Tests\PasswordStrengthBehaviors.
  */
 
-namespace Drupal\password_policy_zxcvbn\Tests;
+namespace Drupal\password_strength\Tests;
 
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests password strength behaviors from Zxcvbn library.
+ * Tests password strength behaviors from Password Strength library.
  *
- * @group password_policy_zxcvbn
+ * @group password_strength
  */
 class PasswordStrengthBehaviors extends WebTestBase {
 
-  public static $modules = array('password_policy', 'password_policy_zxcvbn');
+  public static $modules = array('password_policy', 'password_strength');
 
   /**
    * Test password strength behaviors.
@@ -31,17 +31,17 @@ class PasswordStrengthBehaviors extends WebTestBase {
     // Create new password length policy.
     $edit = array();
     $edit['score'] = '4';
-    $this->drupalPostForm('admin/config/security/password-policy/zxcvbn', $edit, t('Add policy'));
+    $this->drupalPostForm('admin/config/security/password-policy/password-strength', $edit, t('Add policy'));
 
     // Get latest ID to get policy.
-    $id = db_select("password_policy_zxcvbn_policies", 'p')
+    $id = db_select("password_strength_policies", 'p')
       ->fields('p', array('pid'))
       ->orderBy('p.pid', 'DESC')
       ->execute()
       ->fetchObject();
 
     // Create user with policy applied.
-    $user2 = $this->drupalCreateUser(array('enforce password_policy_zxcvbn_constraint.' . $id->pid . ' constraint'));
+    $user2 = $this->drupalCreateUser(array('enforce password_strength_constraint.' . $id->pid . ' constraint'));
     $uid = $user2->id();
 
     // Login.

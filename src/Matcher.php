@@ -2,12 +2,12 @@
 
 /**
  * @file
- * Contains Drupal\password_policy_zxcvbn\Matcher.
+ * Contains Drupal\password_strength\Matcher.
  */
 
-namespace Drupal\password_policy_zxcvbn;
+namespace Drupal\password_strength;
 
-use Drupal\password_policy_zxcvbn\ZxcvbnMatcherInterface;
+use Drupal\password_strength\PasswordStrengthMatcherInterface;
 
 class Matcher {
 
@@ -42,13 +42,13 @@ class Matcher {
    *   Array of classes implementing MatchInterface
    */
   protected function getMatchers() {
-    $config = \Drupal::config('password_policy_zxcvbn.settings');
+    $config = \Drupal::config('password_strength.settings');
     $all_matchers = array_values($config->get('matchers'));
     $enabled_matchers = array();
 
     for ($i = (count($all_matchers) - 1); $i >= 0; $i--) {
       if ($all_matchers[$i]) {
-        $def = \Drupal::service('plugin.manager.password_policy_zxcvbn.zxcvbn_matcher')
+        $def = \Drupal::service('plugin.manager.password_strength.password_strength_matcher')
           ->getDefinition($all_matchers[$i]);
         $enabled_matchers[] = $def['class'];
       }

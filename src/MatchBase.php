@@ -2,86 +2,19 @@
 
 /**
  * @file
- * Contains Drupal\password_policy_zxcvbn\MatchBase.
+ * Contains Drupal\password_strength\MatchBase.
  */
 
-namespace Drupal\password_policy_zxcvbn;
+namespace Drupal\password_strength;
 
 use Drupal\Component\Plugin\PluginBase;
 
-class MatchBase extends PluginBase implements ZxcvbnMatcherInterface {
+class MatchBase extends PluginBase {
 
   /**
    * @var
    */
-  public $password;
-
-  /**
-   * @var
-   */
-  public $begin;
-
-  /**
-   * @var
-   */
-  public $end;
-
-  /**
-   * @var
-   */
-  public $token;
-
-  /**
-   * @var
-   */
-  public $pattern;
-
-  /**
-   * @var
-   */
-  public $entropy;
-
-  /**
-   * @var
-   */
-  public $cardinality;
-
-  /**
-   * @param $password
-   * @param $begin
-   * @param $end
-   * @param $token
-   */
-  public function __construct($password, $begin, $end, $token) {
-    $this->password = $password;
-    $this->begin = $begin;
-    $this->end = $end;
-    $this->token = $token;
-    $this->entropy = NULL;
-    $this->cardinality = NULL;
-  }
-
-  /**
-   * Find matches in a password.
-   *
-   * @param string $password
-   *   Password to check for match.
-   * @param array $userInputs
-   *   Array of values related to the user (optional).
-   * @return array
-   *   Array of Match objects
-   */
-  public static function match($password, array $userInputs = array()) {
-  }
-
-  /**
-   * Calculate entropy for match token of a password.
-   *
-   * @return float
-   *   Entropy of the matched token in the password.
-   */
-  public function getEntropy() {
-  }
+  protected $zxcvbn_matcher;
 
   /**
    * Find all occurences of regular expression in a string.
@@ -225,5 +158,12 @@ class MatchBase extends PluginBase implements ZxcvbnMatcherInterface {
     }
 
     return $res;
+  }
+
+  /**
+   * @return float
+   */
+  public function getEntropy() {
+    return $this->zxcvbn_matcher->getEntropy();
   }
 }
