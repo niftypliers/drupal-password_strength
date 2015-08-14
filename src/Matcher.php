@@ -7,8 +7,6 @@
 
 namespace Drupal\password_strength;
 
-use Drupal\password_strength\PasswordStrengthMatcherInterface;
-
 class Matcher {
 
   /**

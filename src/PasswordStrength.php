@@ -7,6 +7,9 @@
 
 namespace Drupal\password_strength;
 
+use \ZxcvbnPhp\Scorer;
+use \ZxcvbnPhp\Searcher;
+
 class PasswordStrength {
   /**
    * @var
@@ -24,14 +27,8 @@ class PasswordStrength {
   protected $matcher;
 
   public function __construct() {
-    $config = \Drupal::config('password_strength.settings');
-    $scorer = $config->get('scorer');
-    $searcher = $config->get('searcher');
-
-    $this->searcher = \Drupal::service('plugin.manager.password_strength.password_strength_searcher')
-      ->createInstance($searcher);
-    $this->scorer = \Drupal::service('plugin.manager.password_strength.password_strength_scorer')
-      ->createInstance($scorer);
+    $this->searcher = new Searcher();
+    $this->scorer = new Scorer();
     $this->matcher = new Matcher();
   }
 

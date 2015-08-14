@@ -51,42 +51,6 @@ class PasswordStrengthSettingsForm extends ConfigFormBase {
       '#required' => TRUE,
     );
 
-    //searcher
-    $plugin_manager = \Drupal::service('plugin.manager.password_strength.password_strength_searcher');
-    $all_plugins = $plugin_manager->getDefinitions();
-
-    $all_searchers = array();
-    foreach ($all_plugins as $plugin) {
-      $id = $plugin['id'];
-      $all_searchers[$id] = $plugin['title'];
-    }
-
-    $form['searcher'] = array(
-      '#title' => 'Searcher',
-      '#type' => 'select',
-      '#options' => $all_searchers,
-      '#default_value' => $config->get('searcher'),
-      '#required' => TRUE,
-    );
-
-    //scorer
-    $plugin_manager = \Drupal::service('plugin.manager.password_strength.password_strength_scorer');
-    $all_plugins = $plugin_manager->getDefinitions();
-
-    $all_scorers = array();
-    foreach ($all_plugins as $plugin) {
-      $id = $plugin['id'];
-      $all_scorers[$id] = $plugin['title'];
-    }
-
-    $form['scorer'] = array(
-      '#title' => 'Scorer',
-      '#type' => 'select',
-      '#options' => $all_scorers,
-      '#default_value' => $config->get('scorer'),
-      '#required' => TRUE,
-    );
-
     return parent::buildForm($form, $form_state);
   }
 
@@ -95,7 +59,6 @@ class PasswordStrengthSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('password_strength.settings')
-      ->set('matchers', $form_state->getValue('matchers'))
       ->set('matchers', $form_state->getValue('matchers'))
       ->save();
     drupal_set_message('Password Strength settings have been stored');
