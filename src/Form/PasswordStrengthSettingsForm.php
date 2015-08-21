@@ -47,7 +47,7 @@ class PasswordStrengthSettingsForm extends ConfigFormBase {
       '#title' => 'Matchers',
       '#type' => 'checkboxes',
       '#options' => $all_matchers,
-      '#default_value' => $config->get('matchers'),
+      '#default_value' => $config->get('enabled_matchers'),
       '#required' => TRUE,
     );
 
@@ -59,7 +59,7 @@ class PasswordStrengthSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('password_strength.settings')
-      ->set('matchers', $form_state->getValue('matchers'))
+      ->set('enabled_matchers', $form_state->getValue('matchers'))
       ->save();
     drupal_set_message('Password Strength settings have been stored');
     parent::submitForm($form, $form_state);
