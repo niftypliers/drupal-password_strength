@@ -34,14 +34,14 @@ class Matcher {
   }
 
   /**
-   * Load available Match objects to match against a password.
+   * Load enabled Matcher objects to match against a password.
    *
    * @return array
    *   Array of classes implementing MatchInterface
    */
   protected function getMatchers() {
     $config = \Drupal::config('password_strength.settings');
-    $all_matchers = array_values($config->get('matchers'));
+    $all_matchers = array_values($config->get('enabled_matchers'));
     $enabled_matchers = array();
 
     for ($i = (count($all_matchers) - 1); $i >= 0; $i--) {
@@ -53,6 +53,5 @@ class Matcher {
     }
 
     return $enabled_matchers;
-
   }
 }
