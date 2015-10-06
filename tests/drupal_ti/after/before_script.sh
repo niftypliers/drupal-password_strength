@@ -19,5 +19,6 @@ cd "$DRUPAL_TI_DRUPAL_DIR"
 # list out commands for debugging
 # composer
 composer drupal-rebuild
-composer drupal-update
+# https://github.com/composer/composer/issues/1314
+composer drupal-update --no-interaction
 
