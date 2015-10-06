@@ -13,8 +13,9 @@ score abstracts all of the complex logic and password strength evaluation for a 
 evaluate the strength of a password. This is in contrast to stricter regulations which need explicitly configured 
 policies for passwords. This is a generic approach which promotes usability and still advocates for strong passwords.
 
-**Enable**
+**Installing**
 
+-  Ensure that Composer Manager is enabled and properly installed (https://www.drupal.org/node/2405811)
 -  Download and enable the module
 -  Create or update a password policy (admin/config/security/password-policy)
 -  On the second step under "Add Constraint", select "Password Strength" and click "Configure Constraint Settings"
