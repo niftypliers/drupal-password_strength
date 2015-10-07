@@ -25,6 +25,14 @@ use Drupal\password_policy\PasswordPolicyValidation;
  */
 class PasswordStrength extends PasswordConstraintBase {
 
+  public $strength_scores = [
+    '0' => 'Very weak (0)',
+    '1' => 'Weak (1)',
+    '2' => 'Average (2)',
+    '3' => 'Strong (3)',
+    '4' => 'Very strong (4)',
+  ];
+
   /**
    * {@inheritdoc}
    */
@@ -61,7 +69,7 @@ class PasswordStrength extends PasswordConstraintBase {
     $form['strength_score'] = array(
       '#type' => 'select',
       '#title' => t('Password Strength Minimum Score'),
-      '#options' => array('0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4',),
+      '#options' => $this->strength_scores,
       '#default_value' => $this->getConfiguration()['strength_score'],
     );
     return $form;
