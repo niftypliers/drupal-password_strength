@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\password_strength\MatchBase.
- */
-
 namespace Drupal\password_strength;
 
 use Drupal\Component\Plugin\PluginBase;

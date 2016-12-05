@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\password_strength\Constraints\PasswordStrength.
- */
-
 //TODO - Add in "tokens" into annotations (see: error message, which should show #chars from config)
 
 namespace Drupal\password_strength\Plugin\PasswordConstraint;

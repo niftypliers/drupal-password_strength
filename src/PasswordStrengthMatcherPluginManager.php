@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\password_strength\PasswordStrengthMatcherPluginManager.
- */
 
 namespace Drupal\password_strength;
 

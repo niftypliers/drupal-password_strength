@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\password_strength\Tests\PasswordStrengthBehaviors.
- */
-
 namespace Drupal\password_strength\Tests;
 
 use Drupal\simpletest\WebTestBase;

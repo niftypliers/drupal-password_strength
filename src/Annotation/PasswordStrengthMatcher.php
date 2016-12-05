@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\password_strength\Annotation\PasswordStrengthMatcher.
- */
-
 namespace Drupal\password_strength\Annotation;
 
 use Drupal\Component\Annotation\Plugin;

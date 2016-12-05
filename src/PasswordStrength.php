@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\password_strength\PasswordStrength.
- */
-
 namespace Drupal\password_strength;
 
 use \ZxcvbnPhp\Scorer;

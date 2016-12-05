@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\password_strength\Matcher.
- */
-
 namespace Drupal\password_strength;
 
 class Matcher {
