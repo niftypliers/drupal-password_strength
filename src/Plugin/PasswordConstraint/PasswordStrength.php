@@ -7,6 +7,7 @@ namespace Drupal\password_strength\Plugin\PasswordConstraint;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\password_policy\PasswordConstraintBase;
 use Drupal\password_policy\PasswordPolicyValidation;
+use Drupal\user\UserInterface;
 
 /**
  * Enforces a specific character length for passwords.
@@ -31,10 +32,12 @@ class PasswordStrength extends PasswordConstraintBase {
   /**
    * {@inheritdoc}
    */
-  function validate($password, $user_context) {
-    unset($user_context['uid']);
+  function validate($password, UserInterface $user) {
 
-    $userData = array_values($user_context);
+    $userData = array_merge(
+      ($user->getAccountName() ? [$user->getAccountName()] : []),
+      ($user->getEmail() ? [$user->getEmail()] : [])
+    );
 
     $configuration = $this->getConfiguration();
     $validation = new PasswordPolicyValidation();
