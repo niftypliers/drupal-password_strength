@@ -2,14 +2,14 @@
 
 namespace Drupal\password_strength\Tests;
 
-use Drupal\simpletest\WebTestBase;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * Tests password strength behaviors from Password Strength library.
  *
  * @group password_strength
  */
-class PasswordStrengthTests extends WebTestBase {
+class PasswordStrengthTests extends BrowserTestBase {
 
   public static $modules = array('password_policy', 'password_strength');
 

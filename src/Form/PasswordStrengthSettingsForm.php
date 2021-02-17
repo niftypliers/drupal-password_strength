@@ -61,7 +61,7 @@ class PasswordStrengthSettingsForm extends ConfigFormBase {
     $this->config('password_strength.settings')
       ->set('enabled_matchers', $form_state->getValue('matchers'))
       ->save();
-    drupal_set_message('Password Strength settings have been stored');
+    $this->messenger()->addStatus('Password Strength settings have been stored');
     parent::submitForm($form, $form_state);
   }
 }

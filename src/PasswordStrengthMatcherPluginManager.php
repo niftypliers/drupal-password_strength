@@ -2,14 +2,15 @@
 
 namespace Drupal\password_strength;
 
+use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Plugin\Discovery\AnnotatedClassDiscovery;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Language\LanguageManager;
-use Drupal\Core\StringTranslation\TranslationWrapper;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 
-class PasswordStrengthMatcherPluginManager extends \Drupal\Core\Plugin\DefaultPluginManager {
+class PasswordStrengthMatcherPluginManager extends DefaultPluginManager {
   /**
    * Constructs a new PasswordStrengthMatcherPluginManager.
    *
@@ -57,8 +58,8 @@ class PasswordStrengthMatcherPluginManager extends \Drupal\Core\Plugin\DefaultPl
       $name = 'zxcvbn_' . strtolower($class);
       $definitions[$name] = array(
         'id' => $name,
-        'title' => new TranslationWrapper($matcher_description),
-        'description' => new TranslationWrapper('Zxcvbn Library ' . $class . ' Matcher'),
+        'title' => new TranslatableMarkup($matcher_description),
+        'description' => new TranslatableMarkup('Zxcvbn Library ' . $class . ' Matcher'),
         'class' => $matcher_class,
         'provider' => 'password_strength',
       );
