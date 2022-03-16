@@ -2,29 +2,28 @@
 
 namespace Drupal\password_strength;
 
-use \ZxcvbnPhp\Scorer;
-use \ZxcvbnPhp\Searcher;
+use ZxcvbnPhp\Zxcvbn;
 
+/**
+ * Base class PasswordStrength.
+ *
+ * @package Drupal\password_strength
+ */
 class PasswordStrength {
   /**
-   * @var
+   * Member variable.
+   *
+   * @var \ZxcvbnPhp\Zxcvbn
    */
-  protected $scorer;
+  protected $zxcvbnPhp;
 
   /**
-   * @var
+   * {@inheritdoc}
+   *
+   * Instantiate the Zxcvbn and save it in member variable.
    */
-  protected $searcher;
-
-  /**
-   * @var
-   */
-  protected $matcher;
-
   public function __construct() {
-    $this->searcher = new Searcher();
-    $this->scorer = new Scorer();
-    $this->matcher = new Matcher();
+    $this->zxcvbnPhp = new Zxcvbn();
   }
 
   /**
@@ -42,49 +41,8 @@ class PasswordStrength {
    *     match_sequence
    *     score
    */
-  public function passwordStrength($password, array $userInputs = array()) {
-    $timeStart = microtime(TRUE);
-    if (strlen($password) === 0) {
-      $timeStop = microtime(TRUE) - $timeStart;
-      return $this->result($password, 0, array(), 0, array('calc_time' => $timeStop));
-    }
-
-    // Get matches for $password.
-    $matches = $this->matcher->getMatches($password, $userInputs);
-
-    // Calcuate minimum entropy and get best match sequence.
-    $entropy = $this->searcher->getMinimumEntropy($password, $matches);
-    $bestMatches = $this->searcher->matchSequence;
-
-    // Calculate score and get crack time.
-    $score = $this->scorer->score($entropy);
-    $metrics = $this->scorer->getMetrics();
-
-    $timeStop = microtime(TRUE) - $timeStart;
-    // Include metrics and calculation time.
-    $params = array_merge($metrics, array('calc_time' => $timeStop));
-    return $this->result($password, $entropy, $bestMatches, $score, $params);
-  }
-
-  /**
-   * Result array.
-   *
-   * @param string $password
-   * @param float $entropy
-   * @param array $matches
-   * @param int $score
-   * @param array $params
-   *
-   * @return array
-   */
-  protected function result($password, $entropy, $matches, $score, $params = array()) {
-    $r = array(
-      'password' => $password,
-      'entropy' => $entropy,
-      'match_sequence' => $matches,
-      'score' => $score
-    );
-    return array_merge($params, $r);
+  public function passwordStrength($password, array $userInputs = []) {
+    return $this->zxcvbnPhp->passwordStrength($password, $userInputs);
   }
 
 }

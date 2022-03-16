@@ -3,6 +3,6 @@
   "description": "Integrates the Password Strength into Drupal's Password Policy module.",
   "type": "drupal-module",
   "require": {
-    "bjeavons/zxcvbn-php": "0.4.0"
+    "bjeavons/zxcvbn-php": "^1.3"
   }
 }
